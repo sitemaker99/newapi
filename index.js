@@ -11,7 +11,12 @@ const PORT = process.env.PORT || 3000;
 const PROXY_URL = (process.env.PROXY_URL || '').replace(/\/$/, '');
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'OPTIONS', 'HEAD'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Range'],
+  exposedHeaders: ['Content-Range', 'Content-Length', 'Accept-Ranges'],
+}));
 app.use(express.json());
 
 // Serve static files from public directory
